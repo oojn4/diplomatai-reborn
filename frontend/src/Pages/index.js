@@ -7,7 +7,7 @@ const Home = () => {
   const access_token = localStorage.getItem("access_token");
   const navigate = useNavigate();
   if (access_token !== "") {
-    navigate("/pdf");
+    navigate("/webchat");
   }
   const [isRegister, setIsRegister] = useState(false);
 

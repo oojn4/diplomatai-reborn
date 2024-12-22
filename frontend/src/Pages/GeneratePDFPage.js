@@ -1,18 +1,19 @@
+import { jwtDecode as jwt_decode } from 'jwt-decode';
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Logo from "../assets/microsoft-icon.png"; // Update this to your actual logo path
-
+import Logo from "../assets/microsoft-icon.png";
 import DocumentGenerator from '../Components/DocumentGenerator';
+
 function GeneratePDFPage() {
-  const userName = localStorage.getItem('username')?? "teman"; // Change to the logged-in user's name
+  const userName = localStorage.getItem('username') ?? "teman";
   const [messages, setMessages] = useState([
     { text: `Halo, ${userName}!. Ketik mulai untuk memulai chatbot`, isUser: false },
   ]);
   const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false); // State for loading animation
-  const messagesEndRef = useRef(null); // Ref to the last message element
+  const [loading, setLoading] = useState(false);
+  const messagesEndRef = useRef(null);
   const navigate = useNavigate();
-  
+
   // Function to scroll to the bottom
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -23,80 +24,38 @@ function GeneratePDFPage() {
     scrollToBottom();
   }, [messages, loading]);
 
-  useEffect(()=>{
-    if(localStorage.getItem("access_token") === "" )
-    {
-      navigate('/')
+  // Validasi token dan role
+  useEffect(() => {
+    const token = localStorage.getItem("access_token");
+
+    if (!token) {
+      navigate('/');
+      return;
     }
 
-  },[navigate])
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (input.trim() === "") return;
-
-    // Add user message to the chat
-    setMessages([...messages, { text: input, isUser: true }]);
-    setInput("");
-    // Set loading state to true
-    setLoading(true);
-
-    // Call the API and wait for the response
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_API}/chatbot`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${localStorage.getItem("access_token")}`
-        },
-        body: JSON.stringify({ message: input }),
-      });
-      const data = await response.json();
-      if (response.status !== 200)
-      {
-        localStorage.setItem("access_token","")
-        navigate('/')
+      const decodedToken = jwt_decode(token);
+      console.log("Decoded Token:", decodedToken); // Debugging
+
+      if (decodedToken.sub.role !== "diplomat") {
+        alert("Access denied: This page is only for diplomats.");
+        navigate('/webchat'); // Arahkan ke halaman lain jika bukan diplomat
       }
-      // Replace occurrences of **text** with <strong>text</strong>
-      const formattedText = data.data.replace(
-        /\*\*(.*?)\*\*/g,
-        "<strong>$1</strong>"
-      );
-
-      // Add the formatted API response to the chat
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { text: formattedText, isUser: false },
-      ]);
     } catch (error) {
-      console.error("Error fetching API:", error);
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        {
-          text: "Something went wrong, please try again later.",
-          isUser: false,
-        },
-      ]);
+      console.error("Invalid token:", error);
+      localStorage.setItem("access_token", ""); // Hapus token jika invalid
+      navigate('/'); // Arahkan ke halaman login
     }
+  }, [navigate]);
 
-    // Set loading state to false
-    setLoading(false);
-  };
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      handleSubmit(e);
-    }
-  };
-
-  const handleLogout = ()=>{
-    localStorage.setItem("access_token","");
+  const handleLogout = () => {
+    localStorage.setItem("access_token", "");
     navigate("/");
-  }
+  };
 
   return (
     <div className="flex flex-col w-full h-screen">
-      {/* Navbar */}
       <div className="bg-violet-900">
         <div className="flex items-center m-auto w-full max-w-screen-2xl justify-between px-4 lg:px-16 py-4 text-white">
           <div className="flex items-center space-x-4">
@@ -104,30 +63,27 @@ function GeneratePDFPage() {
             <span className="text-xl font-semibold"></span>
           </div>
           
-          {/* <div className="flex items-center space-x-4">
-            <button onClick={()=>navigate('/webchat')}>
+          <div className="flex items-center space-x-4">
+            <button onClick={() => navigate('/webchat')}>
                 DiplomatAI Chatbot
             </button>
-          </div> */}
+          </div>
           <div className="flex items-center space-x-4">
-            <button onClick={()=>navigate('/pdf')}>
+            <button onClick={() => navigate('/pdf')}>
               Market Intelligence Report Generator
             </button>
           </div>
           <div className="flex items-center space-x-4">
-            <button onClick={()=>handleLogout()}>
+            <button onClick={handleLogout}>
               <i className="fa-solid fa-right-from-bracket"></i>
             </button>
           </div>
         </div>
       </div>
 
-      {/* Chat Area */}
-      
       <div className="flex-grow py-8 px-4 lg:px-16 max-w-screen-2xl bg-gray-50 w-full m-auto overflow-y-auto">
         <div className="space-y-6">
-          
-        <DocumentGenerator />
+          <DocumentGenerator />
         </div>
       </div>
     </div>

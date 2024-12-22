@@ -328,8 +328,8 @@ class FunctionsTools:
             result3_narrative = result3['narrative']
             result3_attachment = result3['attachment']
             result4 = PostgreClient().get_trade_dependence_index(destination_country=destination_country)['narrative']
-            result5 = PostgreClient().get_export_concentration_index(product=product,destination_country=destination_country)['narrative']
-            result6 = PostgreClient().get_trade_complementary_index(product=product,destination_country=destination_country)['narrative']
+            result5 = PostgreClient().get_export_concentration_index(destination_country=destination_country)['narrative']
+            result6 = PostgreClient().get_trade_complementary_index(destination_country=destination_country)['narrative']
             
             result7 = PostgreClient().get_regulation_quality_policy(product=product,destination_country=destination_country)['narrative']
             result8 = PostgreClient().get_tariff_logistic(product=product,destination_country=destination_country)['narrative']

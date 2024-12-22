@@ -2,6 +2,7 @@
   "dependencies": {
     "docxtemplater-image-module": "^3.1.0",
     "fs": "^0.0.1-security",
-    "jszip": "^3.10.1"
+    "jszip": "^3.10.1",
+    "jwt-decode": "^4.0.0"
   }
 }

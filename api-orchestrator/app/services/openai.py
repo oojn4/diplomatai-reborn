@@ -217,9 +217,7 @@ class OpenAIServices:
                 # otherwise don't call it
                 function_answer = function(**kwarg) if kwarg else function()
 
-                print(f" > Function answer : {function_answer['product_description']}")
                 answers.append(function_answer)
-                print(function_answer)
                 response_destination_country_profile = self.chat_completion.get_mi_tools_completion(
                 messages=[
                     SystemMessage(content=PERSONA_PROMPT),
