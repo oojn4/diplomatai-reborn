@@ -1,0 +1,9 @@
+api-auth/env/
+api-auth/.env
+
+api-orchestrator/env/
+api-orchestrator/.env
+
+frontend/.env
+frontend/node_modules/
+node_modules/

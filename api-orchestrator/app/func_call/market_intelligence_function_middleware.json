@@ -1,0 +1,21 @@
+[{
+    "name": "market_intelligence",
+    "description": "This function is used when a user inquires about profile destination country and product description",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "product": {
+                "type": "string",
+                "description": "The product name for the export recommendation to be searched"
+            },
+            "destination_country": {
+                "type": "string",
+                "description": "The destination_country to be searched"
+            }
+        },
+        "required": [
+            "product", 
+            "destination_country"
+        ]
+    }
+}]

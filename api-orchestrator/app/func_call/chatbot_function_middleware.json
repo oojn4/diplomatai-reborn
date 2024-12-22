@@ -1,0 +1,141 @@
+[
+      {
+            "name": "get_product_description",
+            "description": "This function is used when the user requires description product. For example:\n1 - \"... produk seperti apa\"",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "product": {
+                        "type": "string",
+                        "description": "The product name to be searched."
+                    }
+                },
+                "required": ["product"]
+            }
+        },
+        {
+              "name": "get_destination_country_profile",
+              "description": "This function is used when the user requires profile of destination country. For example:\n1 - \"Sebutkan profil atau karakteristik negara ...\"",
+              "parameters": {
+                  "type": "object",
+                  "properties": {
+                      "destination_country": {
+                          "type": "string",
+                          "description": "The destination country name to be searched."
+                      }
+                  },
+                  "required": ["destination_country"]
+              }
+          },
+          {
+            "name": "get_export_trend",
+            "description": "This function is used when the user requires monthly trend information of the value and volume export by product and destination country. For example:\n1 - \"Sebutkan nilai ekspor produk ... ke negara ...\"",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "destination_country": {
+                        "type": "string",
+                        "description": "The destination country name to be searched."
+                    },
+                    "product": {
+                            "type": "string",
+                            "description": "The specific product to be searched."
+                    }
+                },
+                "required": ["destination_country", "product"]
+            }
+        },
+        {
+              "name": "get_regulation_quality_policy",
+              "description": "This function is used when the user requires regulation and quality requirements about product in destination country. For example:\n1 - \"Bagaimana regulasi atau aturan atau syarat mutu ekspor produk ... ke negara ... \"",
+              "parameters": {
+                  "type": "object",
+                  "properties": {
+                      "destination_country": {
+                          "type": "string",
+                          "description": "The destination country name to be searched."
+                      },
+                      "product": {
+                          "type": "string",
+                          "description": "The product name to be searched."
+                      }
+                  },
+                  "required": ["destination_country","product"]
+              }
+          },
+          {
+                "name": "get_tariff_logistic",
+                "description": "This function is used when the user requires logistic information about product in destination country. For example:\n1 - \"Bagaimana informasi logistik ekspor produk ... dari kabupaten/kota ... ke negara ... \"",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "destination_country": {
+                            "type": "string",
+                            "description": "The destination country name to be searched."
+                        },
+                        "product": {
+                            "type": "string",
+                            "description": "The product name to be searched."
+                        }
+                    },
+                    "required": ["destination_country","product"]
+                }
+            },
+            {
+                  "name": "get_trade_representative",
+                  "description": "This function is used when the user requires information about atase perdagangan or indonesian trade and promotion center office in destination country. For example:\n1 - \"Sebutkan atase atau perwakilan pemerintah indonesia di negara ...\"",
+                  "parameters": {
+                      "type": "object",
+                      "properties": {
+                          "destination_country": {
+                              "type": "string",
+                              "description": "The destination country name to be searched."
+                          }
+                      },
+                      "required": ["destination_country"]
+                  }
+              },
+              {
+                    "name": "get_trade_dependence_index",
+                    "description": "This function is used when the user requires international trade dependence of country. For example:\n1 - \"Bagaimana peran perdagangan internasional terhadap negara ...\"",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "destination_country": {
+                                "type": "string",
+                                "description": "The destination country name to be searched."
+                            }
+                        },
+                        "required": ["destination_country"]
+                    }
+                },
+                {
+                      "name": "get_export_concentration_index",
+                      "description": "This function is used when the user requires export concentration or trade direction of country. For example:\n1 - \"Bagaimana konsentrasi ekspor atau arah perdagangan negara ...\"",
+                      "parameters": {
+                          "type": "object",
+                          "properties": {
+                              "destination_country": {
+                                  "type": "string",
+                                  "description": "The destination country name to be searched."
+                              }
+                          },
+                          "required": ["destination_country"]
+                      }
+                  },
+                  {
+                        "name": "get_trade_complementary_index",
+                        "description": "This function is used when the user requires international trade complementary of country. For example:\n1 - \"Bagaimana struktur perdagangan negara ...\"",
+                        "parameters": {
+                            "type": "object",
+                            "properties": {
+                                "destination_country": {
+                                    "type": "string",
+                                    "description": "The destination country name to be searched."
+                                }
+                            },
+                            "required": ["destination_country"]
+                        }
+                    }
+         
+]
